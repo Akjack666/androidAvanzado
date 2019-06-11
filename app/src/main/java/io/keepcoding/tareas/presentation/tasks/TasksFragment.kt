@@ -57,6 +57,11 @@ class TasksFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        tasksViewModel.loadTasks()
+    }
+
     private fun onLoadingState(isLoading: Boolean) {
         tasksLoading.setVisible(isLoading)
     }
