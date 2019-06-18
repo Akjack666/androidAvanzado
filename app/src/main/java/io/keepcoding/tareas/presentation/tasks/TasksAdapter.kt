@@ -8,12 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.keepcoding.tareas.R
 import io.keepcoding.tareas.domain.model.Task
 import kotlinx.android.synthetic.main.item_task.view.*
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
+import java.util.*
 
 class TasksAdapter(
     private val onFinished: (task: Task) -> Unit
@@ -32,8 +37,10 @@ class TasksAdapter(
     inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(task: Task) {
-            with (itemView) {
+            with(itemView) {
                 cardContentText.text = task.content
+                cardDescriptionTask.text = task.description
+
 
                 taskFinishedCheck.isChecked = task.isFinished
 
@@ -41,6 +48,16 @@ class TasksAdapter(
                     applyStrikeThrough(cardContentText, task.content)
                 } else {
                     removeStrikeThrough(cardContentText, task.content)
+                }
+
+                val formatter : DateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(
+                    Locale.UK
+                ).withZone(ZoneId.systemDefault())
+
+                cardDate.text = formatter.format(task.createdAt).toString()
+
+                if(task.isHighPriority) {
+                    cardPriority.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
                 }
 
                 taskFinishedCheck.setOnClickListener {
@@ -78,7 +95,7 @@ class TasksAdapter(
             val span = SpannableString(content)
             val spanStrike = StrikethroughSpan()
 
-            if(animate) {
+            if (animate) {
                 ValueAnimator.ofInt(content.length, 0).apply {
                     duration = 300
                     interpolator = FastOutSlowInInterpolator()

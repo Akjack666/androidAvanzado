@@ -5,6 +5,7 @@ import org.threeten.bp.Instant
 data class Task(
     val id: Long,
     val content: String,
+    val description: String,
     val createdAt: Instant,
     val isHighPriority: Boolean,
     val isFinished: Boolean

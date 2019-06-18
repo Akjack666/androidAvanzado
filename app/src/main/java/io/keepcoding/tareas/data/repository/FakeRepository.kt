@@ -9,15 +9,16 @@ class FakeRepository : TaskRepository {
 
     val tasks: MutableMap<Long, Task> =
         mutableMapOf(
-            1L to Task(1, "Este es el primer task 🔥", Instant.now(), false, false),
+            1L to Task(1, "Este es el primer task 🔥","Descripcion de la tarea", Instant.now(), false, false),
             2L to Task(
                 2,
                 "Otro mensaje que la verdad no me importa pero este es algo más largo a ver cómo se comporta",
+                "Descripcion de la tarea",
                 Instant.now(),
                 true,
                 true
             ),
-            3L to Task(3, "Los emojis molan 🔥😊❤️😛🎂💃", Instant.now(), false, true)
+            3L to Task(3, "Los emojis molan 🔥😊❤️😛🎂💃","Descripcion de la tarea", Instant.now(), false, true)
         )
 
     override suspend fun getAll(): List<Task> = runBlocking {

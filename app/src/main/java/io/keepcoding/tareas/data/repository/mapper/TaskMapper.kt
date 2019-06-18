@@ -10,6 +10,7 @@ class TaskMapper : Mapper<TaskEntity, Task> {
             Task(
                 id,
                 content,
+                description,
                 createdAt,
                 isHighPriority,
                 isFinished

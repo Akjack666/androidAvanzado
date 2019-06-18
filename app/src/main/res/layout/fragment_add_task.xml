@@ -1,21 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
+            android:hint="Titulo"
             android:id="@+id/taskContent" android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="32dp"
             app:layout_constraintTop_toTopOf="parent"/>
     <Button
             android:text="Guardar"
             android:layout_width="0dp"
+            android:background="@color/colorPrimary"
+
+            android:textColor="@color/cardview_light_background"
             android:layout_height="wrap_content"
             android:id="@+id/saveButton" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:background="@drawable/edit_text_background_border"
+            android:gravity="start|top"
+            android:ems="10"
+            android:hint="Escribe aqui el detalle de la tarea"
+            android:maxLines="12"
+            android:textAlignment="center"
+            android:id="@+id/taskDescription"
+            app:layout_constraintTop_toBottomOf="@+id/spPriority" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+            android:layout_marginBottom="100dp" app:layout_constraintBottom_toTopOf="@+id/saveButton"/>
+    <Spinner
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spPriority"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintHorizontal_bias="0.489"
+            android:layout_marginTop="8dp"
+            android:entries="@array/priority_list"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+    <TextView
+            android:text="Prioridad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/spPriority" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="176dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="176dp" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/taskContent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,21 @@
         style="@style/TaskCard"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:foreground="?selectableItemBackground" android:layout_height="150dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <View android:layout_width="10dp"
+              android:id="@+id/cardPriority"
+              android:layout_height="wrap_content"
+              android:background="@color/colorPrimary"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent">
+
+        </View>
 
 
         <TextView
@@ -18,22 +28,45 @@
                 android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/taskFinishedCheck"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:textAppearance="@style/TaskCard.Content"/>
+                android:textAppearance="@style/TaskCard.Content"
+                android:layout_marginTop="32dp"/>
 
         <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskFinishedCheck"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="32dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="fecha"
+                  android:id="@+id/cardDate"
+                  app:layout_constraintTop_toBottomOf="@+id/cardContentText"
+                  android:layout_marginBottom="8dp"
+                  app:layout_constraintBottom_toTopOf="@+id/cardDescriptionTask"
+                  app:layout_constraintStart_toStartOf="@+id/cardContentText" android:layout_marginStart="8dp"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/cardDescriptionTask"
+                  android:text="Sin descripcion"
+                  android:maxLines="2"
+                  android:ellipsize="end"
+                  app:layout_constraintTop_toBottomOf="@+id/cardContentText"
+                  app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                  app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                  android:layout_marginTop="32dp" android:layout_marginBottom="8dp"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
