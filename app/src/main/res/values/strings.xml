@@ -2,6 +2,10 @@
     <string name="app_name">Tareas</string>
 
     <string name="add_task_title">Añadir tarea</string>
+    <string name="finished">TERMINADA</string>
+    <string name="pending">PENDIENTE</string>
+    <string name="hight_priority">Prioridad: Alta</string>
+    <string name="low_priority">Prioridad: Baja</string>
     <string-array name="priority_list">
         <item>Alta</item>
         <item>Baja</item>
