@@ -2,7 +2,6 @@ package io.keepcoding.tareas.presentation.tasks
 
 import android.animation.ValueAnimator
 import android.content.Intent
-import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -10,15 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import io.keepcoding.tareas.MainActivity
 import io.keepcoding.tareas.R
 import io.keepcoding.tareas.domain.model.Task
+import io.keepcoding.tareas.presentation.add_task.AddTaskActivity
 import io.keepcoding.tareas.presentation.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_task.view.*
 import org.threeten.bp.ZoneId
@@ -27,8 +25,11 @@ import org.threeten.bp.format.FormatStyle
 import java.util.*
 
 class TasksAdapter(
-    private val onFinished: (task: Task) -> Unit
+        private val onFinished: (task: Task) -> Unit
+
 ) : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffUtil()) {
+
+   // val deleteTaskViewModel: DeleteTaskViewModel by viewmodel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -56,13 +57,13 @@ class TasksAdapter(
                     removeStrikeThrough(cardContentText, task.content)
                 }
 
-                val formatter : DateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(
-                    Locale.UK
+                val formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(
+                        Locale.UK
                 ).withZone(ZoneId.systemDefault())
 
                 cardDate.text = formatter.format(task.createdAt).toString()
 
-                if(task.isHighPriority) {
+                if (task.isHighPriority) {
                     cardPriority.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
                 }
 
@@ -80,12 +81,29 @@ class TasksAdapter(
                 cardView.setOnClickListener {
 
                     val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra("obj",task)
-                    intent.putExtra("id",task.id)
-                    startActivity(itemView.context,intent,null)
+                    intent.putExtra("obj", task)
+                    intent.putExtra("id", task.id)
+                    startActivity(itemView.context, intent, null)
+                }
+
+
+                ibDelete.setOnClickListener {
+
+
+                }
+
+
+                ibEdit.setOnClickListener {
+
+                    val intent = Intent(itemView.context, AddTaskActivity::class.java)
+                    intent.putExtra("obj", task)
+                    intent.putExtra("destiny", "edit")
+                    startActivity(itemView.context, intent, null)
+
                 }
             }
         }
+
 
         private fun applyStrikeThrough(view: TextView, content: String, animate: Boolean = false) {
             val span = SpannableString(content)

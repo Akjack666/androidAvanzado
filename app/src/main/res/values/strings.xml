@@ -6,6 +6,7 @@
     <string name="pending">PENDIENTE</string>
     <string name="hight_priority">Prioridad: Alta</string>
     <string name="low_priority">Prioridad: Baja</string>
+    <string name="edit">Editar</string>
     <string-array name="priority_list">
         <item>Alta</item>
         <item>Baja</item>

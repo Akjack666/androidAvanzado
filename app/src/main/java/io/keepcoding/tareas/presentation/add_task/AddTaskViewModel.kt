@@ -31,6 +31,29 @@ class AddTaskViewModel(
         }
     }
 
+    fun update(task: Task,content: String, description: String, priority: Boolean) {
+        if (!validateContent(content) || !validateContent(description)) {
+            return
+        }
+
+        launch {
+            withContext(dispatcherFactory.getIO()) {
+                taskRepository.updateTask(Task(task.id, content, description, task.createdAt, priority, task.isFinished))
+            }
+            closeAction.call()
+        }
+    }
+
+    fun delete(task: Task) {
+
+        launch {
+            withContext(dispatcherFactory.getIO()) {
+                taskRepository.deleteTask(task)
+            }
+            closeAction.call()
+        }
+    }
+
     private fun validateContent(content: String): Boolean =
         content.isNotEmpty()
 

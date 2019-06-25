@@ -9,6 +9,7 @@ import io.keepcoding.tareas.data.repository.mapper.TaskMapper
 import io.keepcoding.tareas.domain.TaskRepository
 import io.keepcoding.tareas.presentation.add_task.AddTaskViewModel
 import io.keepcoding.tareas.presentation.detail.GetTaskViewModel
+import io.keepcoding.tareas.presentation.tasks.DeleteTaskViewModel
 import io.keepcoding.tareas.presentation.tasks.TasksViewModel
 import io.keepcoding.util.AppDispatcherFactory
 import io.keepcoding.util.DispatcherFactory
@@ -57,6 +58,10 @@ val appModule = module {
 
     viewModel {
         GetTaskViewModel(get(), get())
+    }
+
+    viewModel {
+        DeleteTaskViewModel(get(), get())
     }
 
 }
