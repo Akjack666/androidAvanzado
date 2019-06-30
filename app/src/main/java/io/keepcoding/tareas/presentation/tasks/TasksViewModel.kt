@@ -5,6 +5,8 @@ import io.keepcoding.tareas.domain.TaskRepository
 import io.keepcoding.tareas.domain.model.Task
 import io.keepcoding.tareas.presentation.BaseViewModel
 import io.keepcoding.util.DispatcherFactory
+import io.keepcoding.util.Event
+import io.keepcoding.util.extensions.call
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,6 +26,7 @@ class TasksViewModel(
             val result = withContext(dispatcherFactory.getIO()) { taskRepository.getAll() }
             tasksState.value = result
 
+
             showLoading(false)
         }
     }
@@ -33,6 +36,18 @@ class TasksViewModel(
 
         launch(dispatcherFactory.getIO()) {
             taskRepository.updateTask(newTask)
+        }
+    }
+
+    val closeAction = MutableLiveData<Event<Unit>>()
+
+    fun delete(task: Task) {
+
+        launch {
+            withContext(dispatcherFactory.getIO()) {
+                taskRepository.deleteTask(task)
+            }
+            closeAction.call()
         }
     }
 

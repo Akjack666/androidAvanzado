@@ -24,12 +24,8 @@ import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 import java.util.*
 
-class TasksAdapter(
-        private val onFinished: (task: Task) -> Unit
+class TasksAdapter(val listener: Listener) : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffUtil() ) {
 
-) : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffUtil()) {
-
-   // val deleteTaskViewModel: DeleteTaskViewModel by viewmodel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -40,6 +36,8 @@ class TasksAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+
 
     inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -68,8 +66,7 @@ class TasksAdapter(
                 }
 
                 taskFinishedCheck.setOnClickListener {
-                    onFinished(task)
-
+                    listener.onClick(task)
 
                     if (taskFinishedCheck.isChecked) {
                         applyStrikeThrough(cardContentText, task.content, animate = true)
@@ -88,8 +85,8 @@ class TasksAdapter(
 
 
                 ibDelete.setOnClickListener {
-
-
+                   listener.onDelete(task)
+                    notifyDataSetChanged()
                 }
 
 
@@ -103,6 +100,9 @@ class TasksAdapter(
                 }
             }
         }
+
+
+
 
 
         private fun applyStrikeThrough(view: TextView, content: String, animate: Boolean = false) {
@@ -142,6 +142,13 @@ class TasksAdapter(
             }
         }
 
+
+
+
     }
+
+    /*fun removeItem(position: Int) {
+        list.removeAt(position)
+    }*/
 
 }

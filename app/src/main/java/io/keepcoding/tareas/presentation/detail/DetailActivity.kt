@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import io.keepcoding.tareas.R
 import io.keepcoding.tareas.domain.model.Task
 import io.keepcoding.tareas.presentation.add_task.AddTaskViewModel
+import io.keepcoding.util.extensions.observe
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.threeten.bp.ZoneId
@@ -34,6 +35,8 @@ class DetailActivity : AppCompatActivity() {
 
 
     }
+
+
 
     fun loadData() {
 

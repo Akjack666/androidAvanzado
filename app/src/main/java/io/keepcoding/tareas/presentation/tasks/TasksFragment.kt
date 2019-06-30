@@ -15,17 +15,32 @@ import io.keepcoding.util.EqualSpacingItemDecoration
 import io.keepcoding.util.extensions.observe
 import io.keepcoding.util.extensions.setVisible
 import kotlinx.android.synthetic.main.fragment_tasks.*
+import kotlinx.android.synthetic.main.item_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class TasksFragment : Fragment() {
-
-    val adapter: TasksAdapter by lazy {
-        TasksAdapter {
-            tasksViewModel.toggleFinished(it)
-        }
-    }
+class TasksFragment : Fragment(), Listener{
 
     val tasksViewModel: TasksViewModel by viewModel()
+
+    override fun onDelete(task: Task) {
+
+        tasksViewModel.delete(task)
+        tasksViewModel.loadTasks()
+    }
+
+    override fun onClick(task: Task) {
+        tasksViewModel.toggleFinished(task)
+    }
+
+    val adapter: TasksAdapter by lazy {
+
+            TasksAdapter(this)
+
+    }
+
+
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tasks, container, false)
@@ -68,6 +83,11 @@ class TasksFragment : Fragment() {
 
     private fun onTasksLoaded(tasks: List<Task>) {
         adapter.submitList(tasks)
+    }
+
+    private fun onTaskDeleted(position: Int) {
+     //   adapter.removeItem(position)
+        adapter.notifyItemRemoved(position)
     }
 
 }
